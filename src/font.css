@@ -1,0 +1,8 @@
+@font-face {
+  font-family: "pixelFont"; /* 自定義字型名稱 */
+  src: url("./assets/fonts/Cubic_11.woff2") format("woff2"),
+    /* 根據格式定義對應字型 */ url("./assets/fonts/Cubic_11.woff")
+      format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

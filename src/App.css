@@ -1,0 +1,211 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "pixelFont"; /* 自定義字型名稱 */
+    src: url("./assets/fonts/Cubic_11.woff2") format("woff2"),
+      /* 根據格式定義對應字型 */ url("./assets/fonts/Cubic_11.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+html,
+body {
+  font-family: "pixelFont";
+  color: #3d506a;
+  margin: 0;
+  padding: 0;
+}
+
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+} */
+
+.container {
+  width: 100vw; /* 畫面寬度 */
+  height: 100vh; /* 畫面高度 */
+  overflow: hidden; /* 隱藏超出的內容 */
+  position: relative;
+}
+
+svg.city {
+  width: 41.46%;
+  height: 55.52%;
+  z-index: 9;
+  position: absolute;
+  right: 200px;
+  top: 214px;
+  animation: wobble 10s alternate infinite linear;
+}
+
+@keyframes wobble {
+  0% {
+    transform: translateY(22%) translateX(30%);
+    width: 597px;
+    height: 533px;
+    /* width: 320px; */
+    /* height: 320px; */
+  }
+  15% {
+    transform: translateY(20%) translateX(32%);
+    width: 592px;
+    height: 528px;
+    /* width: 315px;
+    height: 315px; */
+  }
+  25% {
+    transform: translateY(22%) translateX(30%);
+    width: 587px;
+    height: 523px;
+    /* width: 310px; */
+    /* height: 310px; */
+  }
+  35% {
+    transform: translateY(20%) translateX(28%);
+    width: 592px;
+    height: 528px;
+    /* width: 315px; */
+    /* height: 315px; */
+  }
+  50% {
+    transform: translateY(22%) translateX(25%);
+    width: 597px;
+    height: 533px;
+    /* width: 320px; */
+    /* height: 320px; */
+  }
+  75% {
+    transform: translateY(20%) translateX(22%);
+    width: 599px;
+    height: 535px;
+    /* width: 322px; */
+    /* height: 322px; */
+  }
+  100% {
+    transform: translateY(22%) translateX(32%);
+    width: 597px;
+    height: 533px;
+    /* width: 320px; */
+    /* height: 320px; */
+  }
+}
+
+.top_cloud {
+  height: 485px; /* 高度填滿螢幕 */
+  width: 308px; /* 寬度根據圖片比例自動調整 */
+  background-image: url("./assets/top_cloud.png");
+  background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
+  background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
+  animation: move 20s linear infinite; /* 自動開始無限循環動畫 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.bottom_cloud {
+  height: 378px; /* 高度填滿螢幕 */
+  width: 3692px; /* 寬度根據圖片比例自動調整 */
+  background-image: url("./assets/bottom_cloud.png");
+  background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
+  background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
+  animation: move 20s linear infinite; /* 自動開始無限循環動畫 */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+}
+
+.button_border {
+  border-color: rgba(61, 80, 106, 0.2);
+}
+
+.bottom_cloud2 {
+  left: 3691px;
+}
+
+.cloud {
+  left: 3059px;
+}
+
+.sky_bgc {
+  height: 100vh; /* 高度填滿螢幕 */
+  width: 3840px; /* 寬度根據圖片比例自動調整 */
+  /* background-image: url("./assets/R.jpeg"); */
+  background-image: url("./assets/background.png");
+  background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
+  background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
+  animation: move 20s linear infinite; /* 自動開始無限循環動畫 */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.bgc2 {
+  left: 3839px;
+}
+
+.pixel_modal {
+  width: 331px;
+  height: 360px;
+  background: #f5f5f5;
+  box-shadow: -2px 0 0 0 #b7cfdc, -4px 0 0 0 #3d506a, 4px 0 0 0 #b7cfdc,
+    6px 0 0 0 #5f7d97, 8px 0 0 0 #3d506a, 4px 0 0 0 #3d506a, 0 -2px 0 0 #b7cfdc,
+    0 -4px 0 0 #3d506a, -2px -2px 0 0 #3d506a, 4px -2px 0 0 #b7cfdc,
+    4px -4px 0 0 #3d506a, 6px -2px 0 0 #3d506a, 0 2px 0 0 #b7cfdc,
+    0 4px 0 0 #5f7d97, 4px 2px 0 0 #b7cfdc, 4px 4px 0 0 #5f7d97,
+    6px 2px 0 0 #5f7d97, 6px 6px 0 0 #3d506a, -2px 2px 0 0 #b7cfdc,
+    -2px 6px 0 0 #3d506a, -4px 2px 0 0 #3d506a, 8px 2px 0 0 #3d506a,
+    2px 2px 0 0 #3d506a;
+  filter: drop-shadow(4px 4px 0px rgba(61, 80, 106, 0.3));
+}
+
+.pixel_modal_header {
+  width: 417px;
+  height: 84px;
+  background: #b7cfdc;
+  box-shadow: -2px 0px 0 0 #ffffff, 0px -2px 0 0 #ffffff, 0px -2px 0 0 #5f7d97,
+    -4px 0px 0 0 #3d506a, -2px 2px 0 0 #5f7d97, 2px 0px 0 0 #b7cfdc,
+    6px -2px 0 0 #5f7d97, 6px 0px 0 0 #5f7d97, 4px 2px 0 0 #5f7d97,
+    8px 4px 0 0 #3d506a, 8px -2px 0 0 #3d506a, 6px -4px 0 0 #3d506a,
+    -4px 4px 0 0 #3d506a, -2px -4px 0 0 #3d506a, -4px -2px 0 0 #3d506a;
+  /* filter: drop-shadow(4px 4px 0px rgba(61, 80, 106, 0.3)); */
+}
+
+.pixel_modal_body {
+  background: #f5f5f5;
+  box-shadow: -2px -2px 0 0 #b7cfdc, -2px 2px 0 0 #b7cfdc, 2px 0 0 0 #b7cfdc,
+    0px -2px 0 0 #b7cfdc, 2px 2px 0 0 #b7cfdc, 4px 0 0 0 #5f7d97,
+    6px 4px 0 0 #3d506a, 6px -4px 0 0 #3d506a, -4px 4px 0 0 #3d506a,
+    -4px -4px 0 0 #3d506a;
+  /* filter: drop-shadow(4px 4px 0px rgba(61, 80, 106, 0.3)); */
+}
+
+.pixel_modal_shadow {
+  filter: drop-shadow(4px 4px 0px rgba(61, 80, 106, 0.3));
+}
+
+@keyframes move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%); /* 移動一個螢幕寬度 */
+  }
+}
+
+@keyframes move2 {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0); /* 移動一個螢幕寬度 */
+  }
+}
