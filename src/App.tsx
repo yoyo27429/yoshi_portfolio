@@ -27,10 +27,14 @@ function App() {
   const [wheelCount, setWheelCount] = useState(0);
 
   useEffect(() => {
-    const apiKey = "AIzaSyDSL0SoUSVOxfmTbgDcH_kgEo8TCTlmbiE";
-    const sheetId = "1isiaABhZoYQE_SgxeCxNq-lxCJ7lqmL3JLXhjZ5nZYY";
-    getProfile({ apiKey: apiKey, sheetId: sheetId });
-    getWorkDetail({ apiKey: apiKey, sheetId: sheetId });
+    getProfile({
+      apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+      sheetId: import.meta.env.VITE_GOOGLE_SHEET_ID,
+    });
+    getWorkDetail({
+      apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
+      sheetId: import.meta.env.VITE_GOOGLE_SHEET_ID,
+    });
   }, []);
 
   const getProfile = async (params: getGoogleSheetType) => {
@@ -196,6 +200,7 @@ function App() {
       default:
         break;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickBuilding]);
 
   const CityMap = () => {
