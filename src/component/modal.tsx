@@ -77,6 +77,7 @@ export const Modal4 = (props: Modal4Type) => {
         modalElement.removeEventListener("keydown", handleKeyDown);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -107,14 +108,16 @@ export const Modal4 = (props: Modal4Type) => {
             return (
               <li className="my-1 flex gap-2 items-center" key={link}>
                 {i === selecting && (
-                  <img className="w-4 h-4" src={point} alt="" />
+                  <img className="w-4 h-4 select_arrow" src={point} alt="" />
                 )}
-                <a
+                <button
                   className={`text-base ${i === selecting ? "" : "ml-6"}`}
-                  href=""
+                  onClick={() => {
+                    data.clickLink(link);
+                  }}
                 >
                   {link}
-                </a>
+                </button>
               </li>
             );
           })}
@@ -128,7 +131,13 @@ export const Modal5 = (props: Modal5Type) => {
   const data = props.props as Modal5Type;
   return (
     <div className=" w-10/12 rounded-3xl bg-white">
+      <div
+        className={`flex justify-between items-center px-4 py-1 bg-[#${data.tagColor}]`}
+      >
+        <span className="text-base">{data.tag}</span>
+      </div>
       <h1 className="text-2xl">{data.title}</h1>
+      <p className="text-base">{data.desc}</p>
     </div>
   );
 };

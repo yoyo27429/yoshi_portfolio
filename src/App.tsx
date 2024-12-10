@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal3Type, Modal4Type } from "./type/modalType.tsx";
-import { Modal3, Modal4 } from "./component/modal.tsx";
+import { Modal3, Modal4, Modal5 } from "./component/modal.tsx";
 import "./App.css";
 import city from "./assets/city.svg";
 import building1 from "./assets/trend.png";
@@ -87,14 +87,33 @@ function App() {
             desc: data.values[i][4],
             desc2: data.values[i][5],
             link: linkList,
+            clickLink: (link: string) => {
+              // console.log(`click link: ${link}`);
+              getProjectDetail(link);
+            },
             closeFun: () => {
               console.log("點擊");
-
               setShowWorkData();
             },
           });
         }
         setWorkList(resWork);
+      })
+      .catch((error) => console.error("Error:", error));
+  };
+
+  const getProjectDetail = async (link: string) => {
+    console.log(`link: ${link}`);
+
+    const range = "新光-會員專區DB!A1:Q17";
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${
+      import.meta.env.VITE_GOOGLE_SHEET_ID
+    }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`project detail: `, data);
       })
       .catch((error) => console.error("Error:", error));
   };
@@ -265,6 +284,7 @@ function App() {
       </div>
       {!showWorkData && profile && <Modal3 props={profile} />}
       {showWorkData && <Modal4 props={showWorkData} />}
+      {/* <Modal5 props={} /> */}
     </>
   );
 }

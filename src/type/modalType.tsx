@@ -10,9 +10,15 @@ export type Modal3Type = Modal & {
 };
 
 export type Modal4Type = Modal & {
-  name: stringl;
+  name: string;
   time: string;
   desc2: string;
   link: string[];
+  clickLink: (link: string) => void;
   closeFun: void;
+};
+
+export type Modal5Type = Modal & {
+  tag: string;
+  tagColor: string;
 };
