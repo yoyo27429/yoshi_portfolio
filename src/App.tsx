@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Modal3Type, Modal4Type } from "./type/modalType.tsx";
-import { Modal3, Modal4, Modal5 } from "./component/modal.tsx";
+import { Modal3, Modal4 } from "./component/modal.tsx";
+import { useSearchParams } from "react-router-dom";
+import { StockfeelPreject0 } from "./prejects/Stockfeel_project0.tsx";
 import "./App.css";
 import city from "./assets/city.svg";
 import building1 from "./assets/trend.png";
@@ -25,7 +27,9 @@ function App() {
   const [showWorkData, setShowWorkData] = useState<Modal4Type>();
   const [clickBuilding, setClickBuilding] = useState<string>("");
   const [wheelCount, setWheelCount] = useState(0);
-
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [Stockfeel0, setStockfeel0] = useState(false);
+  // const navigate = useNavigate();
   useEffect(() => {
     getProfile({
       apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
@@ -36,6 +40,42 @@ function App() {
       sheetId: import.meta.env.VITE_GOOGLE_SHEET_ID,
     });
   }, []);
+
+  useEffect(() => {
+    console.log("searchParams", searchParams.get("company"));
+
+    // navigate(searchParams);
+    switch (searchParams.get("company")) {
+      case "trend":
+        break;
+      case "asus":
+        break;
+      case "side_project":
+        break;
+      case "stockfeel":
+        switch (searchParams.get("project")) {
+          case "0":
+            // getProjectDetail();
+            setStockfeel0(true);
+            break;
+          case 1:
+            break;
+          case 2:
+            break;
+          case 3:
+            break;
+          case 4:
+            break;
+          default:
+            break;
+        }
+        break;
+      case "tolka":
+        break;
+      default:
+        break;
+    }
+  }, [searchParams.get("company"), searchParams.get("project")]);
 
   const getProfile = async (params: getGoogleSheetType) => {
     // Sheets 中要取得的資料範圍，格式如下
@@ -87,9 +127,11 @@ function App() {
             desc: data.values[i][4],
             desc2: data.values[i][5],
             link: linkList,
-            clickLink: (link: string) => {
-              // console.log(`click link: ${link}`);
-              getProjectDetail(link);
+            clickLink: (com: string, index: number) => {
+              console.log("click link", com, index);
+
+              setSearchParams({ company: com, project: index });
+              // getProjectDetail(link);
             },
             closeFun: () => {
               console.log("點擊");
@@ -102,21 +144,19 @@ function App() {
       .catch((error) => console.error("Error:", error));
   };
 
-  const getProjectDetail = async (link: string) => {
-    console.log(`link: ${link}`);
+  // const getProjectDetail = async () => {
+  //   const range = "新光-會員專區DB!A1:Q17";
+  //   const url = `https://sheets.googleapis.com/v4/spreadsheets/${
+  //     import.meta.env.VITE_GOOGLE_SHEET_ID
+  //   }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
 
-    const range = "新光-會員專區DB!A1:Q17";
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${
-      import.meta.env.VITE_GOOGLE_SHEET_ID
-    }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(`project detail: `, data);
-      })
-      .catch((error) => console.error("Error:", error));
-  };
+  //   fetch(url)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(`project detail: `, data);
+  //     })
+  //     .catch((error) => console.error("Error:", error));
+  // };
 
   const buildings = [
     {
@@ -284,7 +324,7 @@ function App() {
       </div>
       {!showWorkData && profile && <Modal3 props={profile} />}
       {showWorkData && <Modal4 props={showWorkData} />}
-      {/* <Modal5 props={} /> */}
+      {Stockfeel0 && <StockfeelPreject0 />}
     </>
   );
 }

@@ -14,7 +14,7 @@ export type Modal4Type = Modal & {
   time: string;
   desc2: string;
   link: string[];
-  clickLink: (link: string) => void;
+  clickLink: (com: string, index: number) => void;
   closeFun: void;
 };
 

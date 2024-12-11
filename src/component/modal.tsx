@@ -113,7 +113,9 @@ export const Modal4 = (props: Modal4Type) => {
                 <button
                   className={`text-base ${i === selecting ? "" : "ml-6"}`}
                   onClick={() => {
-                    data.clickLink(link);
+                    console.log(`click com: ${data.name} index: ${i}`);
+
+                    data.clickLink(data.name, i);
                   }}
                 >
                   {link}
