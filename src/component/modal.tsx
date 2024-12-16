@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Modal3Type, Modal4Type } from "../type/modalType.tsx";
 import { modalTV } from "../tailwindVariant/modal_style.tsx";
+import { tagTV } from "../tailwindVariant/tag_style.tsx";
 import cross from "../assets/Close.svg";
 import point from "../assets/point.svg";
 
@@ -132,14 +133,22 @@ export const Modal4 = (props: Modal4Type) => {
 export const Modal5 = (props: Modal5Type) => {
   const data = props.props as Modal5Type;
   return (
-    <div className=" w-10/12 rounded-3xl bg-white">
+    <div className="absolute z-20 w-10/12 top-1 left-[8.3%] rounded-3xl bg-white px-8">
       <div
-        className={`flex justify-between items-center px-4 py-1 bg-[#${data.tagColor}]`}
+        className={`mt-10 ${tagTV({
+          type: data.tagColor,
+        })}`}
       >
         <span className="text-base">{data.tag}</span>
       </div>
-      <h1 className="text-2xl">{data.title}</h1>
-      <p className="text-base">{data.desc}</p>
+      <div className="flex mt-4 mb-10">
+        <img className="w-4 h-4 select_arrow mt-3" src={point} alt="" />
+        <div className="flex flex-col gap-3">
+          <h1 className="text-2xl">{data.title}</h1>
+          <p className="text-base">{data.desc}</p>
+        </div>
+      </div>
+      {props.children}
     </div>
   );
 };

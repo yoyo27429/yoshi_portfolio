@@ -20,5 +20,5 @@ export type Modal4Type = Modal & {
 
 export type Modal5Type = Modal & {
   tag: string;
-  tagColor: string;
+  tagColor: number;
 };
