@@ -311,7 +311,7 @@ function App() {
   return (
     <>
       <div
-        className="w-screen h-screen overflow-hidden relative"
+        className="w-screen h-screen fixed overflow-hidden"
         onWheel={handleOnWheel}
       >
         <CityMap />

@@ -2,10 +2,13 @@ import { Modal5 } from "../component/modal.tsx";
 import { useEffect, useState } from "react";
 import banner from "../assets/stockfeel/project0/banner.png";
 import parse from "html-react-parser";
+import { textTV } from "../tailwindVariant/text_style.tsx";
+import { CarouselContentType } from "../type/carouselType.tsx";
 
 export const StockfeelPreject0 = () => {
   const [projectDetail, setProjectDetail] = useState();
   const [rawData, setRawData] = useState();
+  const [carousel1Data, setCarousel1Data] = useState();
 
   useEffect(() => {
     console.log("stockfeel 0 init");
@@ -24,6 +27,18 @@ export const StockfeelPreject0 = () => {
       .then((data) => {
         console.log(`project detail: `, data);
         setRawData(data.values);
+        const carouselDataList: CarouselContentType[] = [];
+        for (let i = 3; i < data.values[6].length; i++) {
+          const carousel1 = data.values[6];
+          if (i % 2 == 1 && carousel1[i]) {
+            carouselDataList.push({
+              tagName: carousel1[i],
+              decs: carousel1[i + 1] ?? "",
+              image: "",
+            });
+          }
+        }
+        setCarousel1Data(carouselDataList);
         setProjectDetail({
           title: data.values[1][1],
           desc: data.values[2][1],
@@ -67,6 +82,11 @@ export const StockfeelPreject0 = () => {
               </span>
             </div>
           </div>
+        </div>
+        <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+          <h3 className={textTV({ type: "title" })}>{rawData[1][1]}</h3>
+          <h3 className={textTV({ type: "subtitle" })}>{rawData[2][1]}</h3>
+          <Carousel props={carousel1Data} />
         </div>
       </Modal5>
     )
