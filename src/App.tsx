@@ -23,7 +23,7 @@ type clickPropsType = {
 
 function App() {
   const [profile, setProfile] = useState<Modal3Type>();
-  const [workList, setWorkList] = useState<Modal4Type[]>();
+  const [workList, setWorkList] = useState<Modal4Type[]>([]);
   const [showWorkData, setShowWorkData] = useState<Modal4Type>();
   const [clickBuilding, setClickBuilding] = useState<string>("");
   const [wheelCount, setWheelCount] = useState(0);
@@ -58,13 +58,13 @@ function App() {
             // getProjectDetail();
             setStockfeel0(true);
             break;
-          case 1:
+          case "1":
             break;
-          case 2:
+          case "2":
             break;
-          case 3:
+          case "3":
             break;
-          case 4:
+          case "4":
             break;
           default:
             break;
@@ -99,6 +99,11 @@ function App() {
       .catch((error) => console.error("Error:", error));
   };
 
+  const closeFunction = () => {
+    console.log("點擊");
+    setShowWorkData(undefined);
+  };
+
   const getWorkDetail = async (params: getGoogleSheetType) => {
     // Sheets 中要取得的資料範圍，格式如下
     const range = "work!A1:P6";
@@ -130,13 +135,10 @@ function App() {
             clickLink: (com: string, index: number) => {
               console.log("click link", com, index);
 
-              setSearchParams({ company: com, project: index });
+              setSearchParams({ company: com, project: index.toString() });
               // getProjectDetail(link);
             },
-            closeFun: () => {
-              console.log("點擊");
-              setShowWorkData();
-            },
+            closeFun: closeFunction(),
           });
         }
         setWorkList(resWork);
@@ -209,7 +211,7 @@ function App() {
     }
   }, [wheelCount]);
 
-  const handleOnWheel = (event) => {
+  const handleOnWheel = (event: React.WheelEvent<HTMLDivElement>) => {
     if (event.deltaY > 0) {
       // 滾輪向下
       // 執行下一步邏輯

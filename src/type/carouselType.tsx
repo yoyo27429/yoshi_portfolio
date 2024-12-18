@@ -1,5 +1,5 @@
 export type CarouselPropsType = {
-  content: CarouseContentType[];
+  content: CarouselContentType[];
   selected: number;
 };
 

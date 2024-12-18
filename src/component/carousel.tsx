@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   CarouselPropsType,
-  CarouseContentType,
+  CarouselContentType,
 } from "../type/carouselType.tsx";
 
-export const Carousel = (props: CarouselPropsType) => {
+export const Carousel = (props: CarouselContentType[]) => {
   const [selected, setSelected] = useState<number>(0);
   const data = props.props;
   return (

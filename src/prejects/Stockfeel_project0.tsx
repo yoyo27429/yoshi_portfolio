@@ -4,11 +4,13 @@ import banner from "../assets/stockfeel/project0/banner.png";
 import parse from "html-react-parser";
 import { textTV } from "../tailwindVariant/text_style.tsx";
 import { CarouselContentType } from "../type/carouselType.tsx";
+import { Modal5Type } from "../type/modalType.tsx";
+import { Carousel } from "../component/carousel.tsx";
 
 export const StockfeelPreject0 = () => {
-  const [projectDetail, setProjectDetail] = useState();
-  const [rawData, setRawData] = useState();
-  const [carousel1Data, setCarousel1Data] = useState();
+  const [projectDetail, setProjectDetail] = useState<Modal5Type>();
+  const [rawData, setRawData] = useState<any>();
+  const [carousel1Data, setCarousel1Data] = useState<CarouselContentType[]>();
 
   useEffect(() => {
     console.log("stockfeel 0 init");
@@ -32,7 +34,7 @@ export const StockfeelPreject0 = () => {
           const carousel1 = data.values[6];
           if (i % 2 == 1 && carousel1[i]) {
             carouselDataList.push({
-              tagName: carousel1[i],
+              tabName: carousel1[i],
               decs: carousel1[i + 1] ?? "",
               image: "",
             });
