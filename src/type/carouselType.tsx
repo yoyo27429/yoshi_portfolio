@@ -1,6 +1,7 @@
 export type CarouselPropsType = {
+  title: string;
+  subtitle: string;
   content: CarouselContentType[];
-  selected: number;
 };
 
 export type CarouselContentType = {

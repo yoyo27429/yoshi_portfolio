@@ -1,14 +1,15 @@
-import { useEffect, useState, useRef } from "react";
-import { Modal3Type, Modal4Type } from "../type/modalType.tsx";
+import { useEffect, useState, useRef, PropsWithChildren } from "react";
+import { Modal3Type, Modal4Type, Modal5Type } from "../type/modalType.tsx";
 import { modalTV } from "../tailwindVariant/modal_style.tsx";
 import { tagTV } from "../tailwindVariant/tag_style.tsx";
 import cross from "../assets/Close.svg";
 import point from "../assets/point.svg";
 
-export const Modal3 = (props: Modal3Type) => {
-  const data = props.props as Modal3Type;
-  console.log(`modal 3 :${props.props.title}`, props);
+type Modal3TypeClass = {
+  data: Modal3Type;
+};
 
+export const Modal3 = ({ data }: Modal3TypeClass) => {
   return (
     <div
       className={`${modalTV({
@@ -30,8 +31,11 @@ export const Modal3 = (props: Modal3Type) => {
   );
 };
 
-export const Modal4 = (props: Modal4Type) => {
-  const data = props.props as Modal4Type;
+type Modal4TypeClass = {
+  data: Modal4Type;
+};
+
+export const Modal4 = ({ data }: Modal4TypeClass) => {
   const [selecting, setSelecting] = useState<number>(0);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -95,8 +99,8 @@ export const Modal4 = (props: Modal4Type) => {
           {data.time && <p className="text-sm">{data.time}</p>}
         </div>
         <div
-          className="w-[60px] h-[60px] bg-[#3D506A] rounded-full"
-          onClick={props.closeFun}
+          className="w-[60px] h-[60px] bg-[#ebedf1] rounded-full"
+          onClick={data.closeFun}
         >
           <img className="w-4 h-4 m-[22px]" src={cross} alt="" />
         </div>
@@ -130,8 +134,14 @@ export const Modal4 = (props: Modal4Type) => {
   );
 };
 
-export const Modal5 = (props: Modal5Type) => {
-  const data = props.props as Modal5Type;
+type Modal5TypeClass = {
+  data: Modal5Type;
+};
+
+export const Modal5: React.FC<PropsWithChildren<Modal5TypeClass>> = ({
+  data,
+  children,
+}) => {
   return (
     <div className="absolute z-20 w-10/12 top-1 left-[8.3%] rounded-3xl bg-white px-8">
       <div
@@ -148,7 +158,7 @@ export const Modal5 = (props: Modal5Type) => {
           <p className="text-base">{data.desc}</p>
         </div>
       </div>
-      {props.children}
+      {children}
     </div>
   );
 };

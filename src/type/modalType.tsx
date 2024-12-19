@@ -15,10 +15,10 @@ export type Modal4Type = ModalType & {
   desc2: string;
   link: string[];
   clickLink: (com: string, index: number) => void;
-  closeFun: void;
+  closeFun: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
 export type Modal5Type = ModalType & {
   tag: string;
-  tagColor: number;
+  tagColor: 1 | 2;
 };

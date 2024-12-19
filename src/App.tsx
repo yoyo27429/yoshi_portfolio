@@ -99,8 +99,8 @@ function App() {
       .catch((error) => console.error("Error:", error));
   };
 
-  const closeFunction = () => {
-    console.log("點擊");
+  const closeFunction = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log("點擊", event);
     setShowWorkData(undefined);
   };
 
@@ -138,7 +138,7 @@ function App() {
               setSearchParams({ company: com, project: index.toString() });
               // getProjectDetail(link);
             },
-            closeFun: closeFunction(),
+            closeFun: closeFunction,
           });
         }
         setWorkList(resWork);
@@ -324,8 +324,8 @@ function App() {
         <div className="sky_bgc"></div>
         <div className="sky_bgc bgc2"></div>
       </div>
-      {!showWorkData && profile && <Modal3 props={profile} />}
-      {showWorkData && <Modal4 props={showWorkData} />}
+      {!showWorkData && profile && <Modal3 data={profile} />}
+      {showWorkData && <Modal4 data={showWorkData} />}
       {Stockfeel0 && <StockfeelPreject0 />}
     </>
   );

@@ -1,6 +1,6 @@
 import { tv } from "tailwind-variants";
 
-export const textTV = tv({
+export const twoColumnContainerTV = tv({
   base: "",
   variants: {
     type: {

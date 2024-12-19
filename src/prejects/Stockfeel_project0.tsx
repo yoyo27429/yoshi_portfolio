@@ -1,16 +1,27 @@
 import { Modal5 } from "../component/modal.tsx";
 import { useEffect, useState } from "react";
-import banner from "../assets/stockfeel/project0/banner.png";
+import banner from "/images/stockfeel/project0/banner.png";
 import parse from "html-react-parser";
 import { textTV } from "../tailwindVariant/text_style.tsx";
-import { CarouselContentType } from "../type/carouselType.tsx";
+import {
+  CarouselContentType,
+  CarouselPropsType,
+} from "../type/carouselType.tsx";
 import { Modal5Type } from "../type/modalType.tsx";
 import { Carousel } from "../component/carousel.tsx";
+import {
+  ColumnComponent,
+  TwoColumnContainer,
+} from "../component/two_column.tsx";
 
+type RawDataType =
+  | { type: "carousel"; data: CarouselPropsType }
+  | { type: "2col"; data: any };
+
+const imageBaseUrl = "/images/stockfeel/project0/";
 export const StockfeelPreject0 = () => {
   const [projectDetail, setProjectDetail] = useState<Modal5Type>();
-  const [rawData, setRawData] = useState<any>();
-  const [carousel1Data, setCarousel1Data] = useState<CarouselContentType[]>();
+  const [rawData, setRawData] = useState<RawDataType[]>();
 
   useEffect(() => {
     console.log("stockfeel 0 init");
@@ -19,77 +30,241 @@ export const StockfeelPreject0 = () => {
   }, []);
 
   const getProjectDetail = async () => {
-    const range = "新光-會員專區DB!A1:Q17";
+    const range = "新光-會員專區DB!A1:Q18";
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${
       import.meta.env.VITE_GOOGLE_SHEET_ID
     }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
 
     fetch(url)
       .then((response) => response.json())
-      .then((data) => {
-        console.log(`project detail: `, data);
-        setRawData(data.values);
-        const carouselDataList: CarouselContentType[] = [];
-        for (let i = 3; i < data.values[6].length; i++) {
-          const carousel1 = data.values[6];
-          if (i % 2 == 1 && carousel1[i]) {
-            carouselDataList.push({
-              tabName: carousel1[i],
-              decs: carousel1[i + 1] ?? "",
-              image: "",
+      .then((res) => {
+        console.log(`project detail: `, res);
+        const data = res.values;
+        const dataComponent: RawDataType[] = [];
+        for (let row = 5; row < data.length; row++) {
+          if (data[row][0] == "Carousel") {
+            const carouselData: CarouselContentType[] = [];
+            for (let col = 3; col < data[row].length; col++) {
+              const carousel1 = data[row];
+              if (col % 2 == 1 && carousel1[col]) {
+                carouselData.push({
+                  tabName: carousel1[col],
+                  decs: carousel1[col + 1] ?? "",
+                  image: `Carousel${row}-${(col - 1) / 2}`,
+                });
+              }
+            }
+            dataComponent.push({
+              type: "carousel",
+              data: {
+                title: data[row][1],
+                subtitle: data[row][2],
+                content: carouselData,
+              },
             });
+          } else {
+            dataComponent.push({ type: "2col", data: data[row] });
           }
         }
-        setCarousel1Data(carouselDataList);
+
+        console.log("combination data:", dataComponent);
+        setRawData(dataComponent);
         setProjectDetail({
-          title: data.values[1][1],
-          desc: data.values[2][1],
+          title: data[1][1],
+          desc: data[2][1],
           tagColor: 1,
-          tag: data.values[0][1],
+          tag: data[0][1],
         });
       })
       .catch((error) => console.error("Error:", error));
   };
   return (
     projectDetail && (
-      <Modal5 props={projectDetail}>
+      <Modal5 data={projectDetail}>
         <img className="w-full" src={banner} alt="" />
-        <div className="flex gap-10 my-[60px]">
-          <div className="flex flex-col w-1/2 border-t-2 py-3 border-[rgba(148,148,148,0.2)">
-            {parse(rawData[5][1])}
-            <a
-              className="w-fit rounded-full bg-white border-2 button_border py-3 px-4 mt-3"
-              href={rawData[5][3]}
-            >
-              {rawData[5][2]}
-            </a>
-          </div>
-          <div className="flex flex-col w-1/2 gap-2">
-            <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-              <span className="text-sm text-[#949494]">{rawData[5][4]}</span>
-              <span className="text-xs text-[#3D506A]">
-                {parse(rawData[5][5])}
-              </span>
-            </div>
-            <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-              <span className="text-sm text-[#949494]">{rawData[5][6]}</span>
-              <span className="text-xs text-[#3D506A]">
-                {parse(rawData[5][7])}
-              </span>
-            </div>
-            <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-              <span className="text-sm text-[#949494]">{rawData[5][8]}</span>
-              <span className="text-xs text-[#3D506A]">
-                {parse(rawData[5][9])}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-          <h3 className={textTV({ type: "title" })}>{rawData[1][1]}</h3>
-          <h3 className={textTV({ type: "subtitle" })}>{rawData[2][1]}</h3>
-          <Carousel props={carousel1Data} />
-        </div>
+        {rawData &&
+          rawData.map((data, i) => {
+            switch (data.type) {
+              case "carousel":
+                return (
+                  <div
+                    key={i}
+                    className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)"
+                  >
+                    <h3 className={textTV({ type: "title" })}>
+                      {data.data.title}
+                    </h3>
+                    <h3 className={textTV({ type: "subtitle" })}>
+                      {data.data.subtitle}
+                    </h3>
+                    <Carousel
+                      company="stockfeel"
+                      project="project0"
+                      data={data.data.content}
+                    />
+                  </div>
+                );
+
+              default:
+                switch (i) {
+                  case 0:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer key={i}>
+                        <ColumnComponent>
+                          {parse(rowData[1])}
+                          <a
+                            className="w-fit rounded-full bg-white border-2 button_border py-3 px-4 mt-3"
+                            href={rowData[3]}
+                          >
+                            {rowData[2]}
+                          </a>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <div className="flex flex-col  py-3 gap-2 ">
+                            <span className="text-sm text-[#949494]">
+                              {rowData[4]}
+                            </span>
+                            <span className="text-xs text-[#3D506A]">
+                              {parse(rowData[5])}
+                            </span>
+                          </div>
+                          <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <span className="text-sm text-[#949494]">
+                              {rowData[6]}
+                            </span>
+                            <span className="text-xs text-[#3D506A]">
+                              {parse(rowData[7])}
+                            </span>
+                          </div>
+                          <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <span className="text-sm text-[#949494]">
+                              {rowData[8]}
+                            </span>
+                            <span className="text-xs text-[#3D506A]">
+                              {rowData[9]}
+                            </span>
+                          </div>
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  case 2:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer key={i}>
+                        <ColumnComponent>
+                          <h3 className={textTV({ type: "title" })}>
+                            {rowData[1]}
+                          </h3>
+                          <h3 className={textTV({ type: "subtitle" })}>
+                            {rowData[2]}
+                          </h3>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <img src={`${imageBaseUrl}2col1.png`} alt="" />
+                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <p>{rowData[3]}</p>
+                            <p>{rowData[4]}</p>
+                          </div>
+                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <p>{rowData[5]}</p>
+                            <p>{rowData[6]}</p>
+                          </div>
+                          <div className="flex flex-col py-3 gap-2">
+                            <p>{rowData[7]}</p>
+                            <p>{rowData[8]}</p>
+                          </div>
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  case 3:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer>
+                        <ColumnComponent>
+                          <h3 className={textTV({ type: "title" })}>
+                            {rowData[1]}
+                          </h3>
+                          <h3 className={textTV({ type: "subtitle" })}>
+                            {rowData[2]}
+                          </h3>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <p>{rowData[3]}</p>
+                          <img src={`${imageBaseUrl}2col2.png`} alt="" />
+                          <p>{parse(rowData[4])}</p>
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  case 4:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer>
+                        <ColumnComponent>
+                          <h3 className={textTV({ type: "title" })}>
+                            {rowData[1]}
+                          </h3>
+                          <h3 className={textTV({ type: "subtitle" })}>
+                            {rowData[2]}
+                          </h3>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <img src={`${imageBaseUrl}2col3.png`} alt="" />
+                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <p>{rowData[3]}</p>
+                            <p>{rowData[4]}</p>
+                          </div>
+                          <p>{rowData[5]}</p>
+                          <p>{rowData[6]}</p>
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  case 6:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer>
+                        <ColumnComponent>
+                          <h3 className={textTV({ type: "title" })}>
+                            {rowData[1]}
+                          </h3>
+                          <h3 className={textTV({ type: "subtitle" })}>
+                            {rowData[2]}
+                          </h3>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <img src={`${imageBaseUrl}2col4.png`} alt="" />
+                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
+                            <p>{rowData[3]}</p>
+                            <p>{rowData[4]}</p>
+                          </div>
+                          <p>{rowData[5]}</p>
+                          <p>{rowData[6]}</p>
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  case 8:
+                    var rowData = data.data;
+                    return (
+                      <TwoColumnContainer>
+                        <ColumnComponent>
+                          <h3 className={textTV({ type: "title" })}>
+                            {rowData[1]}
+                          </h3>
+                          <h3 className={textTV({ type: "subtitle" })}>
+                            {rowData[2]}
+                          </h3>
+                        </ColumnComponent>
+                        <ColumnComponent>
+                          <img src={`${imageBaseUrl}2col5.png`} alt="" />
+                        </ColumnComponent>
+                      </TwoColumnContainer>
+                    );
+                  default:
+                    break;
+                }
+                return <div key={i}></div>;
+            }
+          })}
       </Modal5>
     )
   );
