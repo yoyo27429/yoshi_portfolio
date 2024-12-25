@@ -5,7 +5,7 @@ export const tagTV = tv({
   variants: {
     type: {
       1: "bg-[rgb(66,197,191)]",
-      2: "bg-[rgb(211,142,73]",
+      2: "bg-[#D38E49] text-white",
     },
   },
   //     size: {
@@ -21,6 +21,6 @@ export const tagTV = tv({
   //     },
   //   ],
   defaultVariants: {
-    withbgc: true,
+    type: 1,
   },
 });

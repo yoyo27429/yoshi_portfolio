@@ -10,6 +10,7 @@ import building2 from "./assets/asus.png";
 import building3 from "./assets/side_project.png";
 import building4 from "./assets/stockfeel.png";
 import building5 from "./assets/tolka.png";
+import { SideProjectHakkali } from "./prejects/Side_project_hakkali.tsx";
 
 type getGoogleSheetType = {
   apiKey: string;
@@ -29,6 +30,7 @@ function App() {
   const [wheelCount, setWheelCount] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [Stockfeel0, setStockfeel0] = useState(false);
+  const [SideProject0, setSideProject0] = useState(false);
   // const navigate = useNavigate();
   useEffect(() => {
     getProfile({
@@ -51,6 +53,8 @@ function App() {
       case "asus":
         break;
       case "side_project":
+      case "0":
+        setSideProject0(true);
         break;
       case "stockfeel":
         switch (searchParams.get("project")) {
@@ -327,6 +331,7 @@ function App() {
       {!showWorkData && profile && <Modal3 data={profile} />}
       {showWorkData && <Modal4 data={showWorkData} />}
       {Stockfeel0 && <StockfeelPreject0 />}
+      {SideProject0 && <SideProjectHakkali />}
     </>
   );
 }

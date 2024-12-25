@@ -100,7 +100,7 @@ export const Modal4 = ({ data }: Modal4TypeClass) => {
           {data.time && <p className="text-sm">{data.time}</p>}
         </div>
         <div
-          className="w-[60px] h-[60px] bg-[#ebedf1] rounded-full"
+          className="w-[60px] h-[60px] bg-[#3D506A] rounded-full"
           onClick={data.closeFun}
         >
           <img className="w-4 h-4 m-[22px]" src={cross} alt="" />
@@ -171,8 +171,20 @@ export const Modal5: React.FC<PropsWithChildren<Modal5TypeClass>> = ({
       <div className="flex mt-4 mb-10">
         <img className="w-4 h-4 select_arrow mt-3" src={point} alt="" />
         <div className="flex flex-col gap-3">
-          <h1 className="text-2xl">{data.title}</h1>
-          <p className="text-base">{data.desc}</p>
+          <h1
+            className={`text-2xl ${
+              data.tagColor == 1 ? "text-[#3D506A]" : "text-[#58351F]"
+            }`}
+          >
+            {data.title}
+          </h1>
+          <p
+            className={`text-base ${
+              data.tagColor == 1 ? "text-[#949494]" : "text-[#D38E49]"
+            }`}
+          >
+            {data.desc}
+          </p>
         </div>
       </div>
       {children}

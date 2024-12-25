@@ -1,6 +1,7 @@
 import { Modal5 } from "../component/modal.tsx";
 import { useEffect, useState } from "react";
-import banner from "/images/stockfeel/project0/banner.png";
+import banner from "/images/side_project/hakka_li/banner.png";
+import intro from "/images/side_project/hakka_li/intro.png";
 import parse from "html-react-parser";
 import { textTV } from "../tailwindVariant/text_style.tsx";
 import {
@@ -20,7 +21,7 @@ type RawDataType =
   | { type: "2col"; data: any };
 
 const imageBaseUrl = "/images/stockfeel/project0/";
-export const StockfeelPreject0 = () => {
+export const SideProjectHakkali = () => {
   const [projectDetail, setProjectDetail] = useState<Modal5Type | null>(null);
   const [rawData, setRawData] = useState<RawDataType[]>();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,7 +39,7 @@ export const StockfeelPreject0 = () => {
   }, [searchParams.get("company"), searchParams.get("project")]);
 
   const getProjectDetail = async () => {
-    const range = "新光-會員專區DB!A1:Q18";
+    const range = "SP-會員專區DB!A1:Q18";
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${
       import.meta.env.VITE_GOOGLE_SHEET_ID
     }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
@@ -80,7 +81,7 @@ export const StockfeelPreject0 = () => {
         setProjectDetail({
           title: data[1][1],
           desc: data[2][1],
-          tagColor: 1,
+          tagColor: 2,
           tag: data[0][1],
         });
       })
@@ -99,10 +100,12 @@ export const StockfeelPreject0 = () => {
                     key={i}
                     className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)"
                   >
-                    <h3 className={textTV({ type: "title" })}>
+                    <h3 className={textTV({ type: "title", color: "type2" })}>
                       {data.data.title}
                     </h3>
-                    <h3 className={textTV({ type: "subtitle" })}>
+                    <h3
+                      className={textTV({ type: "subtitle", color: "type2" })}
+                    >
                       {data.data.subtitle}
                     </h3>
                     <Carousel
@@ -120,7 +123,9 @@ export const StockfeelPreject0 = () => {
                     return (
                       <TwoColumnContainer key={i}>
                         <ColumnComponent>
-                          {parse(rowData[1])}
+                          <p className="text-[#58351F] text-base leading-6">
+                            {parse(rowData[1])}
+                          </p>
                           <a
                             className="w-fit rounded-full bg-white border-2 button_border py-3 px-4 mt-3"
                             href={rowData[3]}
@@ -130,41 +135,53 @@ export const StockfeelPreject0 = () => {
                         </ColumnComponent>
                         <ColumnComponent>
                           <div className="flex flex-col  py-3 gap-2 ">
-                            <span className="text-sm text-[#949494]">
+                            <span className="text-sm text-[#D38E49]">
                               {rowData[4]}
                             </span>
-                            <span className="text-xs text-[#3D506A]">
+                            <span className="text-xs text-[#58351F]">
                               {parse(rowData[5])}
                             </span>
                           </div>
                           <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <span className="text-sm text-[#949494]">
+                            <span className="text-sm text-[#D38E49]">
                               {rowData[6]}
                             </span>
-                            <span className="text-xs text-[#3D506A]">
+                            <span className="text-xs text-[#58351F]">
                               {parse(rowData[7])}
                             </span>
                           </div>
                           <div className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <span className="text-sm text-[#949494]">
+                            <span className="text-sm text-[#D38E49]">
                               {rowData[8]}
                             </span>
-                            <span className="text-xs text-[#3D506A]">
+                            <span className="text-xs text-[#58351F]">
                               {rowData[9]}
                             </span>
                           </div>
                         </ColumnComponent>
                       </TwoColumnContainer>
                     );
+                  case 1:
+                    return <img src={intro} alt="" />;
                   case 2:
                     var rowData = data.data;
                     return (
                       <TwoColumnContainer key={i}>
                         <ColumnComponent>
-                          <h3 className={textTV({ type: "title" })}>
+                          <h3
+                            className={textTV({
+                              type: "title",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[1]}
                           </h3>
-                          <h3 className={textTV({ type: "subtitle" })}>
+                          <h3
+                            className={textTV({
+                              type: "subtitle",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[2]}
                           </h3>
                         </ColumnComponent>
@@ -190,10 +207,20 @@ export const StockfeelPreject0 = () => {
                     return (
                       <TwoColumnContainer>
                         <ColumnComponent>
-                          <h3 className={textTV({ type: "title" })}>
+                          <h3
+                            className={textTV({
+                              type: "title",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[1]}
                           </h3>
-                          <h3 className={textTV({ type: "subtitle" })}>
+                          <h3
+                            className={textTV({
+                              type: "subtitle",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[2]}
                           </h3>
                         </ColumnComponent>
@@ -209,10 +236,20 @@ export const StockfeelPreject0 = () => {
                     return (
                       <TwoColumnContainer>
                         <ColumnComponent>
-                          <h3 className={textTV({ type: "title" })}>
+                          <h3
+                            className={textTV({
+                              type: "title",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[1]}
                           </h3>
-                          <h3 className={textTV({ type: "subtitle" })}>
+                          <h3
+                            className={textTV({
+                              type: "subtitle",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[2]}
                           </h3>
                         </ColumnComponent>
@@ -232,10 +269,20 @@ export const StockfeelPreject0 = () => {
                     return (
                       <TwoColumnContainer>
                         <ColumnComponent>
-                          <h3 className={textTV({ type: "title" })}>
+                          <h3
+                            className={textTV({
+                              type: "title",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[1]}
                           </h3>
-                          <h3 className={textTV({ type: "subtitle" })}>
+                          <h3
+                            className={textTV({
+                              type: "subtitle",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[2]}
                           </h3>
                         </ColumnComponent>
@@ -255,10 +302,20 @@ export const StockfeelPreject0 = () => {
                     return (
                       <TwoColumnContainer>
                         <ColumnComponent>
-                          <h3 className={textTV({ type: "title" })}>
+                          <h3
+                            className={textTV({
+                              type: "title",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[1]}
                           </h3>
-                          <h3 className={textTV({ type: "subtitle" })}>
+                          <h3
+                            className={textTV({
+                              type: "subtitle",
+                              color: "type2",
+                            })}
+                          >
                             {rowData[2]}
                           </h3>
                         </ColumnComponent>
