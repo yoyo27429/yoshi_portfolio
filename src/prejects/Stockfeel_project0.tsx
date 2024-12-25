@@ -13,6 +13,7 @@ import {
   ColumnComponent,
   TwoColumnContainer,
 } from "../component/two_column.tsx";
+import { useSearchParams } from "react-router-dom";
 
 type RawDataType =
   | { type: "carousel"; data: CarouselPropsType }
@@ -22,12 +23,19 @@ const imageBaseUrl = "/images/stockfeel/project0/";
 export const StockfeelPreject0 = () => {
   const [projectDetail, setProjectDetail] = useState<Modal5Type>();
   const [rawData, setRawData] = useState<RawDataType[]>();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     console.log("stockfeel 0 init");
 
     getProjectDetail();
   }, []);
+
+  useEffect(() => {
+    if (!searchParams.get("company") && searchParams.get("project")) {
+      setProjectDetail(null);
+    }
+  }, [searchParams.get("company"), searchParams.get("project")]);
 
   const getProjectDetail = async () => {
     const range = "新光-會員專區DB!A1:Q18";

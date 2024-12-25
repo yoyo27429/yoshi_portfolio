@@ -4,6 +4,7 @@ import { modalTV } from "../tailwindVariant/modal_style.tsx";
 import { tagTV } from "../tailwindVariant/tag_style.tsx";
 import cross from "../assets/Close.svg";
 import point from "../assets/point.svg";
+import { useSearchParams } from "react-router-dom";
 
 type Modal3TypeClass = {
   data: Modal3Type;
@@ -142,8 +143,24 @@ export const Modal5: React.FC<PropsWithChildren<Modal5TypeClass>> = ({
   data,
   children,
 }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   return (
-    <div className="absolute z-20 w-10/12 top-1 left-[8.3%] rounded-3xl bg-white px-8">
+    <div className="font-roboto absolute z-20 w-10/12 top-1 left-[8.3%] rounded-3xl bg-white px-8">
+      <div
+        className="absolute right-5 top-5 bg-[#3D506A] w-[60px] h-[60px] rounded-full"
+        onClick={() => {
+          searchParams.delete("company");
+          searchParams.delete("project");
+          setSearchParams();
+        }}
+      >
+        <img
+          className="absolute top-[23px] left-[23px] w-3.5 h-3.5"
+          src={cross}
+          alt=""
+        />
+      </div>
       <div
         className={`mt-10 ${tagTV({
           type: data.tagColor,

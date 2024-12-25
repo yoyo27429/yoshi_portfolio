@@ -21,4 +21,5 @@ export type Modal4Type = ModalType & {
 export type Modal5Type = ModalType & {
   tag: string;
   tagColor: 1 | 2;
+  // closeFun: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
