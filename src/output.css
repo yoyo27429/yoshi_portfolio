@@ -576,6 +576,10 @@ video {
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
 .left-52 {
   left: 13rem;
 }
@@ -606,6 +610,14 @@ video {
 
 .top-\[23px\] {
   top: 23px;
+}
+
+.top-8 {
+  top: 2rem;
+}
+
+.top-12 {
+  top: 3rem;
 }
 
 .z-10 {
@@ -999,7 +1011,7 @@ svg.city {
   z-index: 9;
   position: absolute;
   right: 200px;
-  top: 214px;
+  /* top: 214px; */
   animation: wobble 10s alternate infinite linear;
 }
 
@@ -1062,21 +1074,39 @@ svg.city {
 }
 
 .top_cloud {
-  height: 485px;
+  height: 435px;
   /* 高度填滿螢幕 */
-  width: 308px;
+  width: 2748px;
   /* 寬度根據圖片比例自動調整 */
   background-image: url("./assets/top_cloud.png");
   background-size: auto 100%;
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 20s linear infinite;
+  animation: move 15s linear infinite;
   /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 3;
+  z-index: 5;
+}
+
+.middle_cloud {
+  height: 485px;
+  /* 高度填滿螢幕 */
+  width: 3060px;
+  /* 寬度根據圖片比例自動調整 */
+  background-image: url("./assets/middle_cloud.png");
+  background-size: auto 100%;
+  /* 背景圖片自動覆蓋容器並保持比例 */
+  background-repeat: repeat-x;
+  /* 只在 X 軸重複，實現無縫效果 */
+  animation: move 30s linear infinite;
+  /* 自動開始無限循環動畫 */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 4;
 }
 
 .bottom_cloud {
@@ -1089,11 +1119,12 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 20s linear infinite;
+  animation: move2 45s linear infinite;
   /* 自動開始無限循環動畫 */
+  animation-direction: reverse;
   position: absolute;
   bottom: 0;
-  left: 0;
+  right: 0;
   z-index: 3;
 }
 
@@ -1102,11 +1133,15 @@ svg.city {
 }
 
 .bottom_cloud2 {
-  left: 3691px;
+  right: 3691px;
 }
 
-.cloud {
-  left: 3059px;
+.middle_cloud2 {
+  left: 3061px;
+}
+
+.top_cloud2 {
+  left: 2749px;
 }
 
 .sky_bgc {
@@ -1120,7 +1155,7 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 20s linear infinite;
+  animation: move 60s linear infinite;
   /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;

@@ -168,31 +168,31 @@ function App() {
     {
       id: "building1",
       name: "trend",
-      color: "red",
+      // color: "red",
       path: "M96.8792 511.473L97.8621 510.892V509.751V330.266L108.32 325.786L109.532 325.267V323.948V314.266L163.261 283.006L171.375 288.905L172.501 289.724L173.66 288.951L185.66 280.955H199.226H224.496L271.414 310.063V326.447V327.593L272.403 328.173L319.761 355.922V518.083V521.456L322.721 519.837L365.771 496.292L370.61 499.919V552.702L355.84 560.472L354.772 561.034V562.242V589.35L236.849 649.921L79.5234 548.653V521.724L96.8792 511.473Z",
     },
     {
       id: "building2",
       name: "asus",
-      color: "red",
+      // color: "red",
       path: "M637.687 317.282L375.944 474.756L322.595 441.428V355.609L273.414 325.614V159.807L348.436 116.481L350.937 80.6537L435.128 30.6619L464.303 48.159L500.98 23.1631L517.652 36.4942L525.154 30.6619L581.004 63.9897V105.65L637.687 136.478V308.116V317.282Z",
     },
     {
       id: "building3",
       name: "side_project",
-      color: "red",
+      // color: "red",
       path: "M644.355 56.4914V168.973L743.551 223.964V132.312L927.772 231.463V126.48L710.208 4V97.3181L644.355 56.4914Z",
     },
     {
       id: "building4",
       name: "stockfeel",
-      color: "red",
+      // color: "red",
       path: "M428.457 770.541L565.164 849.695L631.85 805.535L644.353 813.034L677.696 792.204V558.909L653.523 546.411V535.58L661.025 531.414L599.34 493.92V479.755L579.334 468.924L540.99 489.754V506.418L530.987 520.582L492.642 540.579V721.383L469.302 735.547V577.239L428.457 599.736V770.541Z",
     },
     {
       id: "building5",
       name: "tolka",
-      color: "red",
+      // color: "red",
       path: "M779.395 673.89L854.416 714.717L937.774 659.726L1042.8 721.383L1112.83 678.056V493.92L1098.65 485.588V440.595L984.454 375.606V418.099L944.443 393.103L857.751 443.095L779.395 489.754V673.89Z",
     },
   ];
@@ -303,7 +303,7 @@ function App() {
             key={building.id}
             d={building.path}
             fill="transparent"
-            stroke={building.color}
+            // stroke={building.color}
             strokeWidth="2"
             onClick={() =>
               handleBuildingClick({ id: building.id, name: building.name })
@@ -320,9 +320,13 @@ function App() {
         className="w-screen h-screen fixed overflow-hidden"
         onWheel={handleOnWheel}
       >
+        <div className="w-1/2 relative"></div>
+        <div className="w-1/2 relative"></div>
         <CityMap />
         <div className="top_cloud"></div>
-        <div className="top_cloud cloud"></div>
+        <div className="top_cloud top_cloud2"></div>
+        <div className="middle_cloud"></div>
+        <div className="middle_cloud middle_cloud2"></div>
         <div className="bottom_cloud"></div>
         <div className="bottom_cloud bottom_cloud2"></div>
         <div className="sky_bgc"></div>

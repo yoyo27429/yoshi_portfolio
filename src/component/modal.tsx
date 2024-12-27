@@ -15,7 +15,7 @@ export const Modal3 = ({ data }: Modal3TypeClass) => {
     <div
       className={`${modalTV({
         withbgc: true,
-      })} px-9 w-[331px] h-[360px] pixel_modal`}
+      })} px-9 w-[331px] h-[360px] pixel_modal z-10`}
     >
       <h1 className="text-3xl mt-10 mb-8">{data.title}</h1>
       <p className="text-base mb-3">{data.desc}</p>
@@ -88,7 +88,7 @@ export const Modal4 = ({ data }: Modal4TypeClass) => {
 
   return (
     <div
-      className={` max-w-[419px] pixel_modal_shadow ${modalTV({
+      className={`max-w-[419px] pixel_modal_shadow top-12 ${modalTV({
         withbgc: false,
       })}`}
       ref={modalRef}
