@@ -6,7 +6,7 @@ import App from "./App.tsx";
 import "./output.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/yoshi_portfolio">
       <Routes>
         <Route path="/" element={<App />} />
       </Routes>
