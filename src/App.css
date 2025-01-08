@@ -40,7 +40,9 @@ svg.city {
   height: 55.52%;
   z-index: 9;
   position: absolute;
-  right: 200px;
+  left: -100px;
+  top: 10%;
+  /* right: 200px; */
   /* top: 214px; */
   animation: wobble 10s alternate infinite linear;
 }

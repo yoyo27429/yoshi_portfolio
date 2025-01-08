@@ -148,7 +148,9 @@ export const Modal5: React.FC<PropsWithChildren<Modal5TypeClass>> = ({
   return (
     <div className="font-roboto absolute z-20 w-10/12 top-1 left-[8.3%] rounded-3xl bg-white px-8">
       <div
-        className="absolute right-5 top-5 bg-[#3D506A] w-[60px] h-[60px] rounded-full"
+        className={`absolute right-5 top-5  ${
+          data.tagColor == 1 ? "bg-[#3D506A]" : "bg-[#58351F]"
+        } w-[60px] h-[60px] rounded-full`}
         onClick={() => {
           searchParams.delete("company");
           searchParams.delete("project");

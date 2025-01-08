@@ -1,27 +1,28 @@
-import {Modal5} from "../component/modal.tsx";
-import {useEffect, useState} from "react";
+import { Modal5 } from "../component/modal.tsx";
+import { useEffect, useState } from "react";
 import banner from "/images/side_project/hakka_li/banner.png";
-import intro from "/images/side_project/hakka_li/intro.png";
+import banner2 from "/images/side_project/hakka_li/banner2.png";
+import banner3 from "/images/side_project/hakka_li/banner3.png";
 import parse from "html-react-parser";
-import {textTV} from "../tailwindVariant/text_style.tsx";
+import { textTV } from "../tailwindVariant/text_style.tsx";
 import {
   CarouselContentType,
   CarouselPropsType,
 } from "../type/carouselType.tsx";
-import {Modal5Type} from "../type/modalType.tsx";
-import {Carousel} from "../component/carousel.tsx";
+import { Modal5Type } from "../type/modalType.tsx";
+import { Carousel, CustomCarousel } from "../component/carousel.tsx";
 import {
   ColumnComponent,
   TwoColumnContainer,
 } from "../component/two_column.tsx";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 type RawDataType =
-  | {type: "carousel"; data: CarouselPropsType}
+  | { type: "carousel"; data: CarouselPropsType }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  | {type: "2col"; data: any};
+  | { type: "2col"; data: any };
 
-const imageBaseUrl = "/images/stockfeel/project0/";
+const imageBaseUrl = "/yoshi_portfolio/images/side_project/hakka_li/";
 export const SideProjectHakkali = () => {
   const [projectDetail, setProjectDetail] = useState<Modal5Type | null>(null);
   const [rawData, setRawData] = useState<RawDataType[]>();
@@ -41,8 +42,9 @@ export const SideProjectHakkali = () => {
 
   const getProjectDetail = async () => {
     const range = "SP-會員專區DB!A1:Q18";
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${import.meta.env.VITE_GOOGLE_SHEET_ID
-      }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${
+      import.meta.env.VITE_GOOGLE_SHEET_ID
+    }/values/${range}?key=${import.meta.env.VITE_GOOGLE_API_KEY}`;
 
     fetch(url)
       .then((response) => response.json())
@@ -72,7 +74,7 @@ export const SideProjectHakkali = () => {
               },
             });
           } else {
-            dataComponent.push({type: "2col", data: data[row]});
+            dataComponent.push({ type: "2col", data: data[row] });
           }
         }
 
@@ -101,19 +103,27 @@ export const SideProjectHakkali = () => {
                     key={i}
                     className="flex flex-col border-t-2 py-3 gap-2 border-[rgba(148,148,148,0.2)"
                   >
-                    <h3 className={textTV({type: "title", color: "type2"})}>
+                    <h3 className={textTV({ type: "title", color: "type2" })}>
                       {data.data.title}
                     </h3>
                     <h3
-                      className={textTV({type: "subtitle", color: "type2"})}
+                      className={textTV({ type: "subtitle", color: "type2" })}
                     >
                       {data.data.subtitle}
                     </h3>
-                    <Carousel
-                      company="stockfeel"
-                      project="project0"
-                      data={data.data.content}
-                    />
+                    {i === 5 ? (
+                      <CustomCarousel
+                        company="side_project"
+                        project="hakka_li"
+                        data={data.data.content}
+                      />
+                    ) : (
+                      <Carousel
+                        company="side_project"
+                        project="hakka_li"
+                        data={data.data.content}
+                      />
+                    )}
                   </div>
                 );
 
@@ -123,11 +133,12 @@ export const SideProjectHakkali = () => {
                     return (
                       <TwoColumnContainer key={i}>
                         <ColumnComponent>
-                          <p className="text-[#58351F] text-base leading-6">
+                          <p className="text-[#58351F] text-base ">
                             {parse(rowData[1])}
                           </p>
                           <a
                             className="w-fit rounded-full bg-white border-2 button_border py-3 px-4 mt-3"
+                            target="_blank"
                             href={rowData[3]}
                           >
                             {rowData[2]}
@@ -162,9 +173,8 @@ export const SideProjectHakkali = () => {
                       </TwoColumnContainer>
                     );
                   case 1:
-                    return <img src={intro} alt="" />;
+                    return <img src={banner2} alt="" />;
                   case 2:
-
                     return (
                       <TwoColumnContainer key={i}>
                         <ColumnComponent>
@@ -186,144 +196,76 @@ export const SideProjectHakkali = () => {
                           </h3>
                         </ColumnComponent>
                         <ColumnComponent>
-                          <img src={`${imageBaseUrl}2col1.png`} alt="" />
-                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <p>{rowData[3]}</p>
-                            <p>{rowData[4]}</p>
-                          </div>
-                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <p>{rowData[5]}</p>
-                            <p>{rowData[6]}</p>
-                          </div>
-                          <div className="flex flex-col py-3 gap-2">
-                            <p>{rowData[7]}</p>
-                            <p>{rowData[8]}</p>
-                          </div>
-                        </ColumnComponent>
-                      </TwoColumnContainer>
-                    );
-                  case 3:
-
-                    return (
-                      <TwoColumnContainer>
-                        <ColumnComponent>
-                          <h3
-                            className={textTV({
-                              type: "title",
-                              color: "type2",
-                            })}
+                          <p className="text-[#58351F]  text-base ">
+                            {parse(rowData[3])}
+                          </p>
+                          <ul className="list-decimal pl-5 text-[#58351F]">
+                            <li>{rowData[4]}</li>
+                            <li>{rowData[5]}</li>
+                            <li>{rowData[6]}</li>
+                          </ul>
+                          <img
+                            className="my-3"
+                            src={`${imageBaseUrl}2col1.png`}
+                            alt=""
+                          />
+                          <p className="text-[#58351F] text-base ">
+                            {parse(rowData[7])}
+                          </p>
+                          <img
+                            className="my-3"
+                            src={`${imageBaseUrl}2col2.png`}
+                            alt=""
+                          />
+                          <p className="text-[#58351F] text-base ">
+                            {parse(rowData[8])}
+                          </p>
+                          <img
+                            className="my-3"
+                            src={`${imageBaseUrl}2col3.png`}
+                            alt=""
+                          />
+                          <p className="text-[#58351F] text-base ">
+                            {parse(rowData[9])}
+                          </p>
+                          <a
+                            className="text-[#4285F4] underline text-base "
+                            target="_blank"
+                            href="https://docs.google.com/spreadsheets/d/1xEfYQ-JFvZx56BnP3VXmXr9JtrtCW-LYLDQNNSRmkws/edit?gid=1306051432#gid=1306051432"
                           >
-                            {rowData[1]}
-                          </h3>
-                          <h3
-                            className={textTV({
-                              type: "subtitle",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[2]}
-                          </h3>
-                        </ColumnComponent>
-                        <ColumnComponent>
-                          <p>{rowData[3]}</p>
-                          <img src={`${imageBaseUrl}2col2.png`} alt="" />
-                          <p>{parse(rowData[4])}</p>
-                        </ColumnComponent>
-                      </TwoColumnContainer>
-                    );
-                  case 4:
-
-                    return (
-                      <TwoColumnContainer>
-                        <ColumnComponent>
-                          <h3
-                            className={textTV({
-                              type: "title",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[1]}
-                          </h3>
-                          <h3
-                            className={textTV({
-                              type: "subtitle",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[2]}
-                          </h3>
-                        </ColumnComponent>
-                        <ColumnComponent>
-                          <img src={`${imageBaseUrl}2col3.png`} alt="" />
-                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <p>{rowData[3]}</p>
-                            <p>{rowData[4]}</p>
-                          </div>
-                          <p>{rowData[5]}</p>
-                          <p>{rowData[6]}</p>
+                            {rowData[10]}
+                          </a>
+                          <img
+                            className="my-3"
+                            src={`${imageBaseUrl}2col4.png`}
+                            alt=""
+                          />
                         </ColumnComponent>
                       </TwoColumnContainer>
                     );
                   case 6:
-
                     return (
-                      <TwoColumnContainer>
-                        <ColumnComponent>
-                          <h3
-                            className={textTV({
-                              type: "title",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[1]}
-                          </h3>
-                          <h3
-                            className={textTV({
-                              type: "subtitle",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[2]}
-                          </h3>
-                        </ColumnComponent>
-                        <ColumnComponent>
-                          <img src={`${imageBaseUrl}2col4.png`} alt="" />
-                          <div className="flex flex-col border-b-2 py-3 gap-2 border-[rgba(148,148,148,0.2)">
-                            <p>{rowData[3]}</p>
-                            <p>{rowData[4]}</p>
-                          </div>
-                          <p>{rowData[5]}</p>
-                          <p>{rowData[6]}</p>
-                        </ColumnComponent>
-                      </TwoColumnContainer>
+                      <div className="border-t-2 py-3 border-[rgba(148,148,148,0.2) my-14">
+                        <h3
+                          className={textTV({
+                            type: "title",
+                            color: "type2",
+                          })}
+                        >
+                          {rowData[1]}
+                        </h3>
+                        <h3
+                          className={textTV({
+                            type: "subtitle",
+                            color: "type2",
+                          })}
+                        >
+                          {rowData[2]}
+                        </h3>
+                        <img className="w-full mt-5" src={banner3} />
+                      </div>
                     );
-                  case 8:
 
-                    return (
-                      <TwoColumnContainer>
-                        <ColumnComponent>
-                          <h3
-                            className={textTV({
-                              type: "title",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[1]}
-                          </h3>
-                          <h3
-                            className={textTV({
-                              type: "subtitle",
-                              color: "type2",
-                            })}
-                          >
-                            {rowData[2]}
-                          </h3>
-                        </ColumnComponent>
-                        <ColumnComponent>
-                          <img src={`${imageBaseUrl}2col5.png`} alt="" />
-                        </ColumnComponent>
-                      </TwoColumnContainer>
-                    );
                   default:
                     break;
                 }

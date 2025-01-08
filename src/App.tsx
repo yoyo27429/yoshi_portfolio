@@ -317,12 +317,15 @@ function App() {
   return (
     <>
       <div
-        className="w-screen h-screen fixed overflow-hidden"
+        className="w-screen h-screen fixed overflow-hidden flex"
         onWheel={handleOnWheel}
       >
-        <div className="w-1/2 relative"></div>
-        <div className="w-1/2 relative"></div>
-        <CityMap />
+        <div className="w-1/2 relative">
+          {!showWorkData && profile && <Modal3 data={profile} />}
+        </div>
+        <div className="w-1/2 relative">
+          <CityMap />
+        </div>
         <div className="top_cloud"></div>
         <div className="top_cloud top_cloud2"></div>
         <div className="middle_cloud"></div>
@@ -332,7 +335,6 @@ function App() {
         <div className="sky_bgc"></div>
         <div className="sky_bgc bgc2"></div>
       </div>
-      {!showWorkData && profile && <Modal3 data={profile} />}
       {showWorkData && <Modal4 data={showWorkData} />}
       {Stockfeel0 && <StockfeelPreject0 />}
       {SideProject0 && <SideProjectHakkali />}
