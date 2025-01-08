@@ -23,3 +23,7 @@ export type Modal5Type = ModalType & {
   tagColor: 1 | 2;
   // closeFun: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
+
+export type PasswordModalType = {
+  pwd: string;
+};

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal3Type, Modal4Type } from "./type/modalType.tsx";
-import { Modal3, Modal4 } from "./component/modal.tsx";
+import { Modal3, Modal4, UnsupportModal } from "./component/modal.tsx";
 import { useSearchParams } from "react-router-dom";
 import { StockfeelPreject0 } from "./prejects/Stockfeel_project0.tsx";
 import "./App.css";
@@ -11,6 +11,7 @@ import building3 from "./assets/side_project.png";
 import building4 from "./assets/stockfeel.png";
 import building5 from "./assets/tolka.png";
 import { SideProjectHakkali } from "./prejects/Side_project_hakkali.tsx";
+import { getWidth } from "./utils/width.tsx";
 
 type getGoogleSheetType = {
   apiKey: string;
@@ -31,6 +32,7 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [Stockfeel0, setStockfeel0] = useState(false);
   const [SideProject0, setSideProject0] = useState(false);
+  const [windowWidth, setWindowWidth] = useState<number>(window.innerWidth);
   // const navigate = useNavigate();
   useEffect(() => {
     getProfile({
@@ -41,6 +43,17 @@ function App() {
       apiKey: import.meta.env.VITE_GOOGLE_API_KEY,
       sheetId: import.meta.env.VITE_GOOGLE_SHEET_ID,
     });
+
+    const handleResize = () => {
+      setWindowWidth(getWidth().width);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // 清理事件監聽器
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   useEffect(() => {
@@ -320,12 +333,18 @@ function App() {
         className="w-screen h-screen fixed overflow-hidden flex"
         onWheel={handleOnWheel}
       >
-        <div className="w-1/2 relative">
-          {!showWorkData && profile && <Modal3 data={profile} />}
-        </div>
-        <div className="w-1/2 relative">
-          <CityMap />
-        </div>
+        {windowWidth < 1440 ? (
+          <UnsupportModal />
+        ) : (
+          <>
+            <div className="w-1/2 relative">
+              {!showWorkData && profile && <Modal3 data={profile} />}
+            </div>
+            <div className="w-1/2 relative">
+              <CityMap />
+            </div>
+          </>
+        )}
         <div className="top_cloud"></div>
         <div className="top_cloud top_cloud2"></div>
         <div className="middle_cloud"></div>
@@ -335,9 +354,9 @@ function App() {
         <div className="sky_bgc"></div>
         <div className="sky_bgc bgc2"></div>
       </div>
-      {showWorkData && <Modal4 data={showWorkData} />}
-      {Stockfeel0 && <StockfeelPreject0 />}
-      {SideProject0 && <SideProjectHakkali />}
+      {windowWidth >= 1440 && showWorkData && <Modal4 data={showWorkData} />}
+      {windowWidth >= 1440 && Stockfeel0 && <StockfeelPreject0 />}
+      {windowWidth >= 1440 && SideProject0 && <SideProjectHakkali />}
     </>
   );
 }

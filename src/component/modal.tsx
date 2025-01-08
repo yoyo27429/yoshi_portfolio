@@ -1,9 +1,16 @@
 import { useEffect, useState, useRef, PropsWithChildren } from "react";
-import { Modal3Type, Modal4Type, Modal5Type } from "../type/modalType.tsx";
+import {
+  Modal3Type,
+  Modal4Type,
+  Modal5Type,
+  PasswordModalType,
+} from "../type/modalType.tsx";
 import { modalTV } from "../tailwindVariant/modal_style.tsx";
 import { tagTV } from "../tailwindVariant/tag_style.tsx";
 import cross from "../assets/Close.svg";
 import point from "../assets/point.svg";
+import unsupportIcon from "../assets/unsupportIcon.png";
+import locker from "../assets/locker.png";
 import { useSearchParams } from "react-router-dom";
 
 type Modal3TypeClass = {
@@ -190,6 +197,119 @@ export const Modal5: React.FC<PropsWithChildren<Modal5TypeClass>> = ({
         </div>
       </div>
       {children}
+    </div>
+  );
+};
+
+export const UnsupportModal = () => {
+  return (
+    <div
+      className={`max-w-[231px] pixel_modal_shadow top-52 justify-center left-1/2 -translate-x-1/2 ${modalTV(
+        {
+          withbgc: false,
+          isCenter: true,
+        }
+      )}`}
+    >
+      <div className="pixel_modal_header unsupport_modal flex justify-between px-6 items-center">
+        <div className="flex flex-col justify-center">
+          <h1 className="text-2xl">不支援手機</h1>
+        </div>
+      </div>
+      <div className="pixel_modal_body px-6 py-3 flex flex-col justify-center items-center">
+        <img className="w-[72px] h-[72px] mb-3" src={unsupportIcon} alt="" />
+        <p className="text-base mb-3 leading-8">
+          為了良好的使用體驗，
+          <br />
+          請使用電腦裝置瀏覽
+        </p>
+      </div>
+    </div>
+  );
+};
+
+type PasswordModalClass = {
+  data: PasswordModalType;
+};
+export const PasswordModal = ({ data }: PasswordModalClass) => {
+  const [values, setValues] = useState<string[]>(["", "", "", ""]);
+  const [isError, setIsError] = useState<boolean>(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleChange = (
+    index: number,
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
+
+    // 只允許數字
+    if (/^\d*$/.test(value)) {
+      const newValues = [...values];
+      newValues[index] = value;
+      setValues(newValues);
+
+      // 自動跳到下一個輸入框
+      if (value && index < values.length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (`${values[0]}${values[1]}${values[2]}${values[3]}` === data.pwd) {
+      setIsError(false);
+    } else {
+      if (
+        values[0] != "" &&
+        values[1] != "" &&
+        values[2] != "" &&
+        values[3] != ""
+      ) {
+        setIsError(true);
+      }
+    }
+  }, [values]);
+  return (
+    <div
+      className={`max-w-[372px] pixel_modal_shadow top-12 justify-center left-1/2 -translate-x-1/2 ${modalTV(
+        {
+          withbgc: false,
+        }
+      )}`}
+    >
+      <div className="pixel_modal_header password_modal flex justify-between px-6 items-center">
+        <div className="flex flex-col justify-center">
+          <h1 className="text-2xl">請輸入密碼</h1>
+        </div>
+        <div
+          className="w-[60px] h-[60px] bg-[#3D506A] rounded-full"
+          onClick={() => {}}
+        >
+          <img className="w-4 h-4 m-[22px]" src={cross} alt="" />
+        </div>
+      </div>
+      <div className="pixel_modal_body px-6 py-3 flex flex-col justify-center items-center">
+        <img className="w-[72px] h-[72px] mb-3" src={locker} alt="" />
+        <p className="text-base mb-3 leading-8">
+          因專案無法對外公開，請輸入密碼檢視內容
+        </p>
+        <div className="flex gap-5 mb-5">
+          {values.map((value, index) => (
+            <input
+              className="w-10 h-10 pxiel_input"
+              key={index}
+              type="text"
+              value={value}
+              onChange={(e) => handleChange(index, e)}
+              ref={(el) => (inputRefs.current[index] = el)}
+              maxLength={1} // 限制每個輸入框只能輸入一位數字
+            />
+          ))}
+        </div>
+        {isError && (
+          <p className="text-red-700">密碼錯誤，請不要再嘗試 ＼(º □ º l|l)/</p>
+        )}
+      </div>
     </div>
   );
 };
