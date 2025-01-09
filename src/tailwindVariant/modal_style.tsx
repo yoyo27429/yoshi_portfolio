@@ -1,7 +1,7 @@
 import { tv } from "tailwind-variants";
 
 export const modalTV = tv({
-  base: "absolute z-10",
+  base: "absolute",
   variants: {
     withbgc: {
       true: "bg-neutral-100",
@@ -10,6 +10,10 @@ export const modalTV = tv({
     isCenter: {
       true: "",
       false: "top-52 left-52",
+    },
+    priority: {
+      1: "z-10",
+      2: "z-20",
     },
   },
   //     size: {
@@ -27,5 +31,6 @@ export const modalTV = tv({
   defaultVariants: {
     withbgc: true,
     isCenter: false,
+    priority: 1,
   },
 });

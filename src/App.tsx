@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { Modal3Type, Modal4Type } from "./type/modalType.tsx";
-import { Modal3, Modal4, UnsupportModal } from "./component/modal.tsx";
+import { Modal3Type, Modal4Type, projectDataType } from "./type/modalType.tsx";
+import {
+  Modal3,
+  Modal4,
+  PasswordModal,
+  UnsupportModal,
+} from "./component/modal.tsx";
 import { useSearchParams } from "react-router-dom";
 import { StockfeelPreject0 } from "./prejects/Stockfeel_project0.tsx";
 import "./App.css";
@@ -12,6 +17,7 @@ import building4 from "./assets/stockfeel.png";
 import building5 from "./assets/tolka.png";
 import { SideProjectHakkali } from "./prejects/Side_project_hakkali.tsx";
 import { getWidth } from "./utils/width.tsx";
+import { PasswordState, useUserStore } from "./store.tsx";
 
 type getGoogleSheetType = {
   apiKey: string;
@@ -24,6 +30,10 @@ type clickPropsType = {
 };
 
 function App() {
+  const { isShow, company, projectIndex } = useUserStore<PasswordState>(
+    (state) => state
+  );
+
   const [profile, setProfile] = useState<Modal3Type>();
   const [workList, setWorkList] = useState<Modal4Type[]>([]);
   const [showWorkData, setShowWorkData] = useState<Modal4Type>();
@@ -55,6 +65,12 @@ function App() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    if (company !== "" && projectIndex !== "") {
+      setSearchParams({ company: company, project: projectIndex });
+    }
+  }, [company, projectIndex]);
 
   useEffect(() => {
     console.log("searchParams", searchParams.get("company"));
@@ -123,7 +139,7 @@ function App() {
 
   const getWorkDetail = async (params: getGoogleSheetType) => {
     // Sheets 中要取得的資料範圍，格式如下
-    const range = "work!A1:P6";
+    const range = "work!A1:V6";
     // Sheets API 的 URL
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${params.sheetId}/values/${range}?key=${params.apiKey}`;
 
@@ -134,10 +150,17 @@ function App() {
         console.log(`work detail: ${data}`, data);
         const resWork: Modal4Type[] = [];
         for (let i = 1; i < data.values.length; i++) {
-          const linkList: string[] = [];
+          const linkList: projectDataType[] = [];
           for (let j = 12; j < data.values[i].length; j++) {
             if (data.values[i][j] != "") {
-              linkList.push(data.values[i][j]);
+              console.log("word list index ", i, j, data.values[i][j + 1]);
+
+              linkList.push({
+                name: data.values[i][j],
+                // password: "1234",
+                password: data.values[i][j + 1],
+              });
+              j += 1;
             } else {
               continue;
             }
@@ -149,15 +172,11 @@ function App() {
             desc: data.values[i][4],
             desc2: data.values[i][5],
             link: linkList,
-            clickLink: (com: string, index: number) => {
-              console.log("click link", com, index);
-
-              setSearchParams({ company: com, project: index.toString() });
-              // getProjectDetail(link);
-            },
             closeFun: closeFunction,
           });
         }
+        console.log(`work combination detail: `, resWork);
+
         setWorkList(resWork);
       })
       .catch((error) => console.error("Error:", error));
@@ -247,6 +266,8 @@ function App() {
     switch (clickBuilding) {
       case "building1": {
         const work = workList.find((w) => w.name == "trend");
+        console.log("building 1", work);
+
         setShowWorkData(work);
         setWheelCount(601);
         break;
@@ -280,6 +301,10 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickBuilding]);
+
+  useEffect(() => {
+    console.log("password isShow", isShow);
+  }, [isShow]);
 
   const CityMap = () => {
     const handleBuildingClick = (props: clickPropsType) => {
@@ -354,6 +379,7 @@ function App() {
         <div className="sky_bgc"></div>
         <div className="sky_bgc bgc2"></div>
       </div>
+      {windowWidth >= 1440 && isShow && <PasswordModal />}
       {windowWidth >= 1440 && showWorkData && <Modal4 data={showWorkData} />}
       {windowWidth >= 1440 && Stockfeel0 && <StockfeelPreject0 />}
       {windowWidth >= 1440 && SideProject0 && <SideProjectHakkali />}

@@ -245,7 +245,10 @@ export const SideProjectHakkali = () => {
                     );
                   case 6:
                     return (
-                      <div className="border-t-2 py-3 border-[rgba(148,148,148,0.2) my-14">
+                      <div
+                        key={i}
+                        className="border-t-2 py-3 border-[rgba(148,148,148,0.2) my-14"
+                      >
                         <h3
                           className={textTV({
                             type: "title",
