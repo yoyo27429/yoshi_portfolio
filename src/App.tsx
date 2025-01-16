@@ -15,6 +15,9 @@ import building2 from "./assets/asus.png";
 import building3 from "./assets/side_project.png";
 import building4 from "./assets/stockfeel.png";
 import building5 from "./assets/tolka.png";
+import scroll from "./assets/scroll.png";
+import mouse from "./assets/mouse.png";
+import keyboard from "./assets/keyboard.png";
 import { SideProjectHakkali } from "./prejects/Side_project_hakkali.tsx";
 import { getWidth } from "./utils/width.tsx";
 import { PasswordState, useUserStore } from "./store.tsx";
@@ -299,6 +302,10 @@ function App() {
       default:
         break;
     }
+    setTimeout(() => {
+      const svgElement = document.querySelector(".animation");
+      if (svgElement) svgElement.classList.remove("paused");
+    }, 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clickBuilding]);
 
@@ -309,9 +316,13 @@ function App() {
   const CityMap = () => {
     const handleBuildingClick = (props: clickPropsType) => {
       // alert(`你點擊了: ${buildingName}`);
+      const svgElement = document.querySelector(".animation");
+      console.log(svgElement);
+
+      if (svgElement) svgElement.classList.add("paused");
       console.log(`click building: ${props.id}`);
-      setClickBuilding(props.id);
       // const work = workList.find((w) => w.name == props.name);
+      setClickBuilding(props.id);
       // setShowWorkData(work);
     };
 
@@ -319,7 +330,7 @@ function App() {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1142 1019"
-        className="city"
+        className="city  "
       >
         <image
           href={
@@ -367,6 +378,15 @@ function App() {
             </div>
             <div className="w-1/2 relative">
               <CityMap />
+              <div className="flex absolute z-10 justify-center items-center hint-text">
+                <p>請</p>
+                <img className="w-10 h-10" src={mouse} alt="" />
+                <p>點擊建築物</p>
+                <img className="w-10 h-10" src={scroll} alt="" />
+                <p>上下滾動</p>
+                <img className="w-10 h-10" src={keyboard} alt="" />
+                <p>鍵盤操作</p>
+              </div>
             </div>
           </>
         )}

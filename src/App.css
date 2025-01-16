@@ -36,15 +36,32 @@ body {
 }
 
 svg.city {
-  width: 41.46%;
-  height: 55.52%;
+  width: 597px;
+  height: 533px;
+  /* width: 41.46%; */
+  /* height: 55.52%; */
   z-index: 9;
   position: absolute;
   left: -100px;
-  top: 10%;
+  top: 50%;
+  transform: translateY(-50%);
   /* right: 200px; */
   /* top: 214px; */
-  animation: wobble 10s alternate infinite linear;
+  /* animation: wobble 10s alternate infinite linear; */
+}
+
+.animation {
+  animation: wobble 10s alternate infinite linear; /* 定義動畫 */
+  animation-play-state: running; /* 預設為運行 */
+}
+
+.paused {
+  animation-play-state: paused; /* 暫停動畫 */
+}
+
+.hint-text {
+  position: absolute; /* 設定新 DIV 為絕對定位 */
+  top: calc(50% + (533px / 2) + 60px); /* 在圖片下方60px的位置 */
 }
 
 @keyframes wobble {
