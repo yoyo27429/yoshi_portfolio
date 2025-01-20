@@ -3,6 +3,7 @@ import { CarouselContentType } from "../type/carouselType.tsx";
 import point from "../assets/point.svg";
 import arrowRight from "../assets/Arrow_right.png";
 import arrowLeft from "../assets/Arrow_left.png";
+import { Typewriter } from "react-typewriter-plus";
 
 type CarouselProps = {
   company: string;
@@ -41,7 +42,10 @@ export const Carousel = ({ company, project, data }: CarouselProps) => {
         style={{ transform: "translateY(-0.5rem)" }}
       >
         {data[selected].decs && (
-          <div className="flex py-6 px-4 mb-2.5">{data[selected].decs}</div>
+          <div className="flex py-6 px-4 mb-2.5">
+            <Typewriter text={data[selected].decs} speed={100} cursor={true} loop={false}/>
+            {/* {data[selected].decs} */}
+          </div>
         )}
         <div className="flex justify-between">
           <ul className="px-4 flex gap-4">
