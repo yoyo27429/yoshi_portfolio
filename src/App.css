@@ -122,7 +122,7 @@ svg.city {
   background-image: url("./assets/top_cloud.png");
   background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 15s linear infinite; /* 自動開始無限循環動畫 */
+  animation: move 30s linear infinite; /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
   left: 0;
@@ -135,7 +135,7 @@ svg.city {
   background-image: url("./assets/middle_cloud.png");
   background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 30s linear infinite; /* 自動開始無限循環動畫 */
+  animation: move 60s linear infinite; /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
   left: 0;
@@ -148,7 +148,7 @@ svg.city {
   background-image: url("./assets/bottom_cloud.png");
   background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
-  animation: move2 45s linear infinite; /* 自動開始無限循環動畫 */
+  animation: move2 90s linear infinite; /* 自動開始無限循環動畫 */
   animation-direction: reverse;
   position: absolute;
   bottom: 0;
@@ -179,7 +179,7 @@ svg.city {
   background-image: url("./assets/background.png");
   background-size: auto 100%; /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x; /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 60s linear infinite; /* 自動開始無限循環動畫 */
+  animation: move 120s linear infinite; /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
   left: 0;
