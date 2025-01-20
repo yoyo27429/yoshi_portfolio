@@ -1012,6 +1012,11 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .pl-5 {
   padding-left: 1.25rem;
 }
@@ -1243,7 +1248,7 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 15s linear infinite;
+  animation: move 30s linear infinite;
   /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
@@ -1261,7 +1266,7 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 30s linear infinite;
+  animation: move 60s linear infinite;
   /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;
@@ -1279,7 +1284,7 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move2 45s linear infinite;
+  animation: move2 90s linear infinite;
   /* 自動開始無限循環動畫 */
   animation-direction: reverse;
   position: absolute;
@@ -1315,7 +1320,7 @@ svg.city {
   /* 背景圖片自動覆蓋容器並保持比例 */
   background-repeat: repeat-x;
   /* 只在 X 軸重複，實現無縫效果 */
-  animation: move 60s linear infinite;
+  animation: move 120s linear infinite;
   /* 自動開始無限循環動畫 */
   position: absolute;
   top: 0;

@@ -6,6 +6,8 @@ import cross from "../assets/Close.svg";
 import point from "../assets/point.svg";
 import unsupportIcon from "../assets/unsupportIcon.png";
 import locker from "../assets/locker.png";
+import contactIcon from "../assets/contact.png";
+import arrowDown from "../assets/Arrow_down.png";
 import { useSearchParams } from "react-router-dom";
 import { PasswordState, useUserStore } from "../store.tsx";
 
@@ -24,11 +26,13 @@ export const Modal3 = ({ data }: Modal3TypeClass) => {
       <p className="text-base mb-3">{data.desc}</p>
       <p className="text-base mb-9">{data.desc2}</p>
       <div className="flex gap-3">
-        <button className="w-[106px] h-10 rounded-full bg-white border-2 button_border">
-          {data.buttonText}
-        </button>
-        <button className="w-[106px] h-10 rounded-full bg-white border-2 button_border">
+        <button className="gap-2 h-10 rounded-full bg-white border-2 button_border flex justify-center items-center px-3 py-4">
           {data.buttonText2}
+          <img className="w-4 h-4" src={contactIcon} alt="" />
+        </button>
+        <button className="gap-2 h-10 rounded-full bg-white border-2 button_border flex justify-center items-center px-3 py-4">
+          {data.buttonText}
+          <img className="w-4 h-4" src={arrowDown} alt="" />
         </button>
       </div>
     </div>
